@@ -1,0 +1,99 @@
+{
+  "SORTEnforcement": false,
+  "SORTLifecycleStage": "BUILD,DEPLOY",
+  "SORTName": "Curl in Image",
+  "categories": [
+      "Security Best Practices"
+  ],
+  "criteriaLocked": true,
+  "description": "Alert on deployments with curl present",
+  "disabled": true,
+  "enforcementActions": [],
+  "eventSource": "NOT_APPLICABLE",
+  "exclusions": [
+      {
+          "deployment": {
+              "name": "collector",
+              "scope": {
+                  "cluster": "",
+                  "label": null,
+                  "namespace": "stackrox"
+              }
+          },
+          "expiration": null,
+          "image": null,
+          "name": "Don't alert on StackRox collector"
+      },
+      {
+          "deployment": {
+              "name": "central",
+              "scope": {
+                  "cluster": "",
+                  "label": null,
+                  "namespace": "stackrox"
+              }
+          },
+          "expiration": null,
+          "image": null,
+          "name": "Don't alert on StackRox central"
+      },
+      {
+          "deployment": {
+              "name": "sensor",
+              "scope": {
+                  "cluster": "",
+                  "label": null,
+                  "namespace": "stackrox"
+              }
+          },
+          "expiration": null,
+          "image": null,
+          "name": "Don't alert on StackRox sensor"
+      },
+      {
+          "deployment": {
+              "name": "admission-control",
+              "scope": {
+                  "cluster": "",
+                  "label": null,
+                  "namespace": "stackrox"
+              }
+          },
+          "expiration": null,
+          "image": null,
+          "name": "Don't alert on StackRox admission controller"
+      }
+  ],
+  "id": "1913283f-ce3c-4134-84ef-195c4cd687ae",
+  "isDefault": true,
+  "lifecycleStages": [
+      "BUILD",
+      "DEPLOY"
+  ],
+  "mitreAttackVectors": [],
+  "mitreVectorsLocked": true,
+  "name": "Curl in Image",
+  "notifiers": [],
+  "policySections": [
+      {
+          "policyGroups": [
+              {
+                  "booleanOperator": "OR",
+                  "fieldName": "Image Component",
+                  "negate": false,
+                  "values": [
+                      {
+                          "value": "curl="
+                      }
+                  ]
+              }
+          ],
+          "sectionName": ""
+      }
+  ],
+  "policyVersion": "1.1",
+  "rationale": "Leaving download tools like curl in an image makes it easier for attackers to use compromised containers, since they can easily download software.",
+  "remediation": "Use your package manager's \"remove\", \"purge\" or \"erase\" command to remove curl from the image build for production containers. Ensure that any configuration files are also removed.",
+  "scope": [],
+  "severity": "LOW_SEVERITY"
+}
